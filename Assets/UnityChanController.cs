@@ -14,6 +14,8 @@ public class UnityChanController : MonoBehaviour
     private float dump = 0.8f;
     //ジャンプの速度
     float jumpVelocity = 20;
+    //ゲームオーバーになる位置
+    private float deadLine = -9;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,9 @@ public class UnityChanController : MonoBehaviour
         //着地しているかどうかを調べる
         bool isGround = (transform.position.y > this.groundLevel) ? false : true;
         this.animator.SetBool("isGround", isGround);
+
+        //ジャンプ状態の時にはボリュームを0にする
+        GetComponent<AudioSource>().volume = (isGround) ? 1 : 0;
         
         //着地状態でクリックされた場合
         if(Input.GetMouseButtonDown(0) && isGround)
@@ -49,6 +54,14 @@ public class UnityChanController : MonoBehaviour
             {
                 this.rigid2D.velocity *= this.dump;
             }
+        }
+        //デッドラインを超えた場合ゲームオーバーにする
+        if(transform.position.x < this.deadLine)
+        {
+            //UIControllerのGameOver関数を呼び出して画面上に「GameOver」と表示する
+            GameObject.Find("Canvas").GetComponent<UIController>().GameOver();
+            //ユニティちゃんを破棄する
+            Destroy(gameObject);
         }
     }
 }
