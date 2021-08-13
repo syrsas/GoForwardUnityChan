@@ -22,6 +22,8 @@ public class CubeGenerator : MonoBehaviour
     private float spaceX = 0.4f;
     //キューブの生成個数の上限
     private int maxBlockNum = 4;
+    //地面の位置（追加）
+    private float groundLevel = -3.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -47,9 +49,21 @@ public class CubeGenerator : MonoBehaviour
                 //キューブの生成
                 GameObject go = Instantiate(cubePrefab);
                 go.transform.position = new Vector2(this.genPosX, this.offsetY + i * this.spaceY);
+                if (go.transform.position.y == this.groundLevel)
+                {
+                    OnCollisionEnter2D(Collision2D);
+                }
             }
             //次のキューブまでの生成時間を決める
             this.span = this.offsetX + this.spaceX * n;
         }        
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.SendMessage("ApplyDamage", 10);
+            GetComponent<AudioSource>().Play();
+        }
     }
 }
