@@ -49,10 +49,7 @@ public class CubeGenerator : MonoBehaviour
                 //キューブの生成
                 GameObject go = Instantiate(cubePrefab);
                 go.transform.position = new Vector2(this.genPosX, this.offsetY + i * this.spaceY);
-                if (go.transform.position.y == this.groundLevel)
-                {
-                    OnCollisionEnter2D(Collision2D);
-                }
+                //OnCollisionEnter2D();
             }
             //次のキューブまでの生成時間を決める
             this.span = this.offsetX + this.spaceX * n;
