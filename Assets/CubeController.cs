@@ -26,4 +26,12 @@ public class CubeController : MonoBehaviour
             Destroy(gameObject);
         }    
     }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.SendMessage("ApplyDamage", 10);
+            GetComponent<AudioSource>().Play();
+        }
+    }
 }
