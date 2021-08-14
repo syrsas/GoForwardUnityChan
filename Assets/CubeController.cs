@@ -30,7 +30,7 @@ public class CubeController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Foll")
         {
-            collision.gameObject.SendMessage("ApplyDamage", 10);
+            //collision.gameObject.SendMessage("ApplyDamage", 10);
             GetComponent<AudioSource>().Play();
         }
     }
