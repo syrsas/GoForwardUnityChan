@@ -28,7 +28,7 @@ public class CubeController : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Foll")
         {
             collision.gameObject.SendMessage("ApplyDamage", 10);
             GetComponent<AudioSource>().Play();
